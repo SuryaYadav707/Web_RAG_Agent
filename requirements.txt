@@ -17,3 +17,4 @@ langchain-huggingface
 langchain-text-splitters
 ollama==0.3.0
 langchain-ollama
+streamlit-autorefresh
