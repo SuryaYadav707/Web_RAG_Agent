@@ -47,7 +47,7 @@ def initialize_rag_agent():
         memory = ConversationBufferMemory(memory_key="chat_history")
 
         # Custom prompt
-        custom_prompt = """You are a helpful assistant who can search through website content and answer questions.
+        custom_prompt = """You are a helpful assistant who can search through website content and answer questions and greet the user for greeting messages .
                 You have access to a database of crawled website content. Use the SearchWebsite tool for simple searches and provide detial answer . 
                 in your answer provide detial answer and provide the source of that answer like the url of the site .
                 Always explain your thinking, then choose an action from the available tools.

@@ -41,8 +41,30 @@ if "processed_message_ids" not in st.session_state:
 if "last_user_message" not in st.session_state:
     st.session_state.last_user_message = ""
 
-# WebSocket configuration
-WEBSOCKET_URL = "ws://localhost:8000/ws"
+# WebSocket configuration - Environment aware
+def get_websocket_url():
+    """Get the correct WebSocket URL based on environment"""
+    import os
+    
+    # For Render deployment
+    if os.getenv('RENDER'):
+        port = os.getenv('PORT', '10000')  # Render typically uses port 10000
+        return f"ws://127.0.0.1:{port}/ws"
+    
+    # For local development  
+    return "ws://localhost:8000/ws"
+
+WEBSOCKET_URL = get_websocket_url()
+
+# Add environment detection info
+def get_env_info():
+    import os
+    return {
+        "render": bool(os.getenv('RENDER')),
+        "render_service": os.getenv('RENDER_SERVICE_ID', 'Not set'),
+        "streamlit_port": os.getenv('STREAMLIT_SERVER_PORT', 'Not set'),
+        "host": os.getenv('HOST', 'localhost')
+    }
 
 class WebSocketManager:
     def __init__(self):
@@ -291,6 +313,18 @@ with st.sidebar:
     3. The RAG agent will provide relevant answers
     4. Use 'Clear Chat History' to start fresh
     """)
+    
+    # Environment and debug information
+    with st.expander("🔧 Environment & Debug Info"):
+        env_info = get_env_info()
+        st.write(f"**Environment:** {'Render' if env_info['render'] else 'Local'}")
+        st.write(f"**WebSocket URL:** {WEBSOCKET_URL}")
+        st.write(f"**Render Service:** {env_info['render_service']}")
+        st.write(f"**Streamlit Port:** {env_info['streamlit_port']}")
+        st.write(f"**Queue Size:** {st.session_state.message_queue.qsize()}")
+        
+        if st.button("Test Connection"):
+            st.info("Check debug output below for connection attempts")
 
 # Main chat interface
 st.title("🤖 Website RAG Chat Assistant")
