@@ -52,7 +52,7 @@ def get_websocket_url():
         return f"ws://127.0.0.1:{port}/ws"
     
     # For local development  
-    return "ws://localhost:10000/ws"
+    return "ws://localhost:8000/ws"
 
 WEBSOCKET_URL = get_websocket_url()
 
