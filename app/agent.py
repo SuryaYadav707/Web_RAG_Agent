@@ -2,12 +2,12 @@ from langchain.agents import Tool, initialize_agent
 from langchain.agents.agent_types import AgentType
 from langchain.memory import ConversationBufferMemory
 from langchain_google_genai import ChatGoogleGenerativeAI
-from llm_define import OllamaLLM
-from llm_define import HuggingFaceChatLLM
+from app.llm_define import OllamaLLM
+from app.llm_define import HuggingFaceChatLLM
 
 from dotenv import load_dotenv
-from db import ChromaIndexer,create_retrieval_qa_tool,create_website_search_tool,create_build_index_tool
-from web_scraper import create_website_extracter_tool
+from app.db import ChromaIndexer,create_retrieval_qa_tool,create_website_search_tool,create_build_index_tool
+from app.web_scraper import create_website_extracter_tool
 import os 
 load_dotenv()
 

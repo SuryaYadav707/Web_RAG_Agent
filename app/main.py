@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from agent import initialize_rag_agent
+from app.agent import initialize_rag_agent
 import json
 import asyncio
 from typing import Dict, List
